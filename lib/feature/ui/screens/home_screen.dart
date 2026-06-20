@@ -23,10 +23,34 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         elevation: 20,
         items: [
-          BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home),),
-          BottomNavigationBarItem(label: 'routine', icon: Icon(Icons.map)),
-          BottomNavigationBarItem(label: 'event', icon: Icon(Icons.event)),
-          BottomNavigationBarItem(label: 'settings', icon: Icon(Icons.settings)),
+          BottomNavigationBarItem(label: 'Home', icon: Column(
+            children: [
+              Icon(Icons.home),
+              currentIndex == 0 ? SizedBox() : Text(
+                'home', style: TextStyle(color: Colors.grey),)
+            ],
+          ),),
+          BottomNavigationBarItem(label: 'routine', icon:Column(
+            children: [
+              Icon(Icons.schedule),
+              currentIndex == 1 ? SizedBox() : Text(
+                'routine', style: TextStyle(color: Colors.grey),)
+            ],
+          ),),
+          BottomNavigationBarItem(label: 'event', icon: Column(
+            children: [
+              Icon(Icons.event),
+              currentIndex == 2 ? SizedBox() : Text(
+                'event', style: TextStyle(color: Colors.grey),)
+            ],
+          ),),
+          BottomNavigationBarItem(label: 'settings', icon: Column(
+            children: [
+              Icon(Icons.settings),
+              currentIndex == 3 ? SizedBox() : Text(
+                'settings', style: TextStyle(color: Colors.grey),)
+            ],
+          ),),
         ],
       ),
     );

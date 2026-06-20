@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:university_time/models/event.dart';
@@ -26,7 +27,12 @@ class HiveDatastore {
     await Hive.openBox<Time>(timeBoxName);
     await Hive.openBox<Event>(eventBoxName);
   }
+
+
+
+
 //TEACHER BOX
+
   Future<void> setTeacher(Teacher teacher) async {
     final teacherBox = Hive.box<Teacher>(teacherBoxName);
     await teacherBox.put(teacher.id, teacher);
@@ -41,7 +47,21 @@ class HiveDatastore {
     final teacherBox = Hive.box<Teacher>(teacherBoxName);
     return teacherBox.get(id);
   }
+
+  Future<List<Teacher>?> getAllTeacher() async {
+    final teacherBox = Hive.box<Teacher>(teacherBoxName);
+    return teacherBox.values.toList();
+  }
+
+  ValueListenable <Box<Teacher>> teacherListenable(){
+    return Hive.box<Teacher>(teacherBoxName).listenable();
+  }
+
+
+
+
 //SUBJECT BOX
+
   Future<void> setSubject(Subject subject) async {
     final subjectBox = Hive.box<Subject>(subjectBoxName);
     final subjectTeacher = await getTeacher(subject.teacher.id);
@@ -60,7 +80,21 @@ class HiveDatastore {
     final subjectBox = Hive.box<Subject>(subjectBoxName);
     return subjectBox.get(id);
   }
+
+  Future<List<Subject>?> getAllSubject() async {
+    final  subjectBox = Hive.box<Subject>(subjectBoxName);
+    return subjectBox.values.toList();
+  }
+
+  ValueListenable <Box<Subject>> subjectListenable(){
+    return Hive.box<Subject>(subjectBoxName).listenable();
+  }
+
+
+
+
 //TIME BOX
+
   Future<void> setTime(Time time) async {
     final timeBox = Hive.box<Time>(timeBoxName);
     await timeBox.put(time.id, time);
@@ -76,7 +110,19 @@ class HiveDatastore {
     return timeBox.get(id);
   }
 
+  Future<List<Time>?> getAllTime() async {
+    final timeBox = Hive.box<Time>(timeBoxName);
+    return timeBox.values.toList();
+  }
+
+  ValueListenable <Box<Time>> timeListenable(){
+    return Hive.box<Time>(timeBoxName).listenable();
+  }
+
+
+
 //EVENT BOX
+
   Future<void> setEvent(Event event) async {
     final eventBox = Hive.box<Event>(eventBoxName);
     await eventBox.put(event.id, event);
@@ -90,5 +136,13 @@ class HiveDatastore {
   Future<Event?> getEvent(String id) async {
     final eventBox = Hive.box<Event>(timeBoxName);
     return eventBox.get(id);
+  }
+
+  Future<List<Event>?> getAllEvent() async {
+    final eventBox = Hive.box<Event>(eventBoxName);
+    return eventBox.values.toList();
+  }
+  ValueListenable <Box<Event>> eventListenable(){
+    return Hive.box<Event>(eventBoxName).listenable();
   }
 }
